@@ -1,0 +1,57 @@
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Credentials and secrets
+credentials.json
+*.key
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.env
+.venv
+
+# Cache directories
+flight_cache/
+postal_cache/
+cache/
+
+# Logs
+*.log
+*.out
+two_week_collector.log
+
+# Analysis outputs
+*.png
+*.html
+*.json
+*.csv
+*.parquet
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Deployment
+deployment_package/credentials.json
+*.tar
+*.gz
+
+# Temporary files
+temp/
+tmp/
+*.tmp

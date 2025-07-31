@@ -1,0 +1,27 @@
+[Unit]
+Description=Flight Data Collector for Amsterdam Noord
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=flightcollector
+Group=flightcollector
+WorkingDirectory=/opt/flight-collector
+Environment=PATH=/opt/flight-collector/venv/bin
+ExecStart=/opt/flight-collector/venv/bin/python /opt/flight-collector/two_week_flight_collector.py --start
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=flight-collector
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/flight-collector
+
+[Install]
+WantedBy=multi-user.target
