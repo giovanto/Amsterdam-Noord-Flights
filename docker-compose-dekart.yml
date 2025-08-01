@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  dekart-aviation:
+    image: dekartxyz/dekart:0.18
+    container_name: dekart-aviation
+    ports:
+      - "8089:8080"  # Using port 8089 to avoid conflict with existing Dekart
+    environment:
+      - DEKART_POSTGRES_HOST=172.17.0.1
+      - DEKART_POSTGRES_PORT=5432
+      - DEKART_POSTGRES_DB=aviation_impact_analysis
+      - DEKART_POSTGRES_USER=gio
+      - DEKART_POSTGRES_PASSWORD=alpinism
+      - DEKART_POSTGRES_DATASOURCE_CONNECTION=postgres://gio:alpinism@172.17.0.1:5432/aviation_impact_analysis?sslmode=disable
+      - DEKART_DATASOURCE=PG
+      - DEKART_MAPBOX_TOKEN=pk.eyJ1IjoiZ2lvdmFudG8iLCJhIjoiY204bzhteWk1MDAwczJsc2IxZzZocHJlaCJ9.eztP_oIj9F-M7vgh66hOsA
+      - DEKART_LOG_DEBUG=1
+      - DEKART_LOG_PRETTY=1
+      # S3 Storage configuration - using existing MinIO
+      - DEKART_STORAGE=S3
+      - AWS_ENDPOINT=http://172.17.0.1:9000
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=minio
+      - AWS_SECRET_ACCESS_KEY=minio123
+      - AWS_S3_FORCE_PATH_STYLE=true
+      - DEKART_CLOUD_STORAGE_BUCKET=dekart-aviation
+      - DEKART_STATIC_FILES=./build
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  dekart-aviation-data:
